@@ -1,0 +1,57 @@
+# depslib dependency file v1.0
+1664888825 source:c:\users\mcken\documents\wits_2022\elen4012a_22p61_firewall_visualization\firewall visualization\src\rule.cpp
+	"../include/Rule.h"
+
+1664889455 c:\users\mcken\documents\wits_2022\elen4012a_22p61_firewall_visualization\firewall visualization\include\rule.h
+	<iostream>
+	<string.h>
+
+1661527938 c:\msys64\mingw64\include\string.h
+	<crtdefs.h>
+	<sec_api/string_s.h>
+
+1661527938 c:\msys64\mingw64\include\crtdefs.h
+	<corecrt.h>
+
+1661527938 c:\msys64\mingw64\include\corecrt.h
+	<_mingw.h>
+	<winapifamily.h>
+
+1661527938 c:\msys64\mingw64\include\_mingw.h
+	"_mingw_mac.h"
+	"_mingw_secapi.h"
+	"_cygwin.h"
+	<vadefs.h>
+	"sdks/_mingw_ddk.h"
+
+1661527938 c:\msys64\mingw64\include\_mingw_mac.h
+
+1661527938 c:\msys64\mingw64\include\_mingw_secapi.h
+
+1661527938 c:\msys64\mingw64\include\_cygwin.h
+	<stddef.h>
+
+1661527938 c:\msys64\mingw64\include\stddef.h
+	<crtdefs.h>
+
+1661527938 c:\msys64\mingw64\include\vadefs.h
+	<_mingw.h>
+
+1661527938 c:\msys64\mingw64\include\sdks\_mingw_ddk.h
+
+1661527938 c:\msys64\mingw64\include\winapifamily.h
+
+1661527938 c:\msys64\mingw64\include\sec_api\string_s.h
+	<string.h>
+
+1664890341 source:c:\users\mcken\documents\wits_2022\elen4012a_22p61_firewall_visualization\firewall visualization\main.cpp
+	<iostream>
+	"include\RuleSet.h"
+
+1664890276 c:\users\mcken\documents\wits_2022\elen4012a_22p61_firewall_visualization\firewall visualization\include\ruleset.h
+	"../include/Rule.h"
+	<iostream>
+	<iomanip>
+	<fstream>
+	<vector>
+

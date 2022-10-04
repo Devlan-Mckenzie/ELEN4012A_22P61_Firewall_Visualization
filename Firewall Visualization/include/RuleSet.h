@@ -1,18 +1,22 @@
 #ifndef RULESET_H
 #define RULESET_H
 
-#include <Rule.h>
-
-
+#include "../include/Rule.h"
+#include <iostream>
+#include <iomanip>
+#include <fstream>
+#include <vector>
 class RuleSet : public Rule
 {
     public:
         RuleSet();
         virtual ~RuleSet();
+        void ImportRules();
 
     protected:
 
     private:
+        std::vector<Rule> rules;
 };
 
 #endif // RULESET_H
