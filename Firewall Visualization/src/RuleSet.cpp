@@ -18,13 +18,14 @@ void RuleSet::ImportRules()
     std::string tempLine;
     inFile.open("TempRuleSet.txt");
     if (!inFile) {
-        std::cout << "Unable to open file";
+        std::cout << "Unable to open file" << std::endl;
         exit(1); // terminate with error
     }
-
-    while(inFile >> tempLine)
+    //inFile >> tempLine
+    while(std::getline(inFile,tempLine))
     {
         std::cout << tempLine << std::endl;
+        std::istringstream iline(tempLine);
     }
 
     inFile.close();
