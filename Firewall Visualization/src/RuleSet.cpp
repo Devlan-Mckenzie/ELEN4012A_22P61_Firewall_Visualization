@@ -25,7 +25,6 @@ void RuleSet::ImportRules()
     while(std::getline(inFile,tempLine))
     {
         std::cout << tempLine << std::endl;
-        std::istringstream iline(tempLine);
     }
 
     inFile.close();
