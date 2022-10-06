@@ -25,15 +25,36 @@ void RuleSet::ImportRules()
     }
     //inFile >> tempLine
     std::cout << "Started Importing the rules" << std::endl;
+    std::cout << '\n' << std::endl;
     while(std::getline(inFile,tempLine))
     {
-        std::cout << tempLine << std::endl;
         std::istringstream ss(tempLine);
-        std::cout << '\n' << std::endl;
-        while(ss >> tempWord )
+        // create a rule type variable
+            Rule tempRule;
+        while(ss >> tempWord)
         {
-            std::cout << tempWord << std::endl;
+            // adding a conditional if statement to control rule property assingment
+            if(tempRule.getIP() == "")
+            {
+                tempRule.setIP(tempWord);
+            }
+            else if(tempRule.getStatus() == "")
+            {
+                tempRule.setStatus(tempWord);
+                rules.push_back(tempRule);
+                tempRule.setIP("");
+                tempRule.setStatus("");
+            }
         }
+
+    }
+    Rule testRule;
+    for(int i = 0;i<this->rules.size();i++)
+    {
+        testRule = this->rules[i];
+        std::cout << "This is rule number "<< i << std::endl;
+        std::cout << "The rule`s IP is " << testRule.getIP() << std::endl;
+        std::cout << "The rule`s Status is " << testRule.getStatus() << std::endl;
         std::cout << '\n' << std::endl;
     }
 

@@ -9,7 +9,10 @@ class Rule
     public:
         Rule();
         virtual ~Rule();
-
+        void setIP(std::string sIP);
+        void setStatus(std::string sStatus);
+        std::string getIP();
+        std::string getStatus();
     protected:
 
     private:
