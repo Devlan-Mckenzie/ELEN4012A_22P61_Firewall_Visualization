@@ -15,12 +15,13 @@ class ImportRules
 {
     public:
         ImportRules(string filename_){filename = filename_;};
-        void setRules();
+         vector<vector<string>> getRules(){setRules(); return ruleSet;};
 
 
     protected:
 
     private:
+        void setRules();
         void organise();
         vector<string> words;
         vector<string> rule;
@@ -28,6 +29,7 @@ class ImportRules
         string filename;
         string word;
         vector<vector<string>> ruleSet;
+        vector<string> temp;
 };
 
 #endif // IMPORTRULES_H

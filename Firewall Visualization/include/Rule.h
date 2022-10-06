@@ -11,8 +11,8 @@ class Rule
     public:
         Rule();
         virtual ~Rule();
-        void setIP(string ip){IP = ip;};
-        void setStatus(string stat){Status = stat;};
+//        void setIP(string ip){IP = ip;};
+//        void setStatus(Status stat){Status = stat;};
         //void setDirection(string)
 
     protected:
