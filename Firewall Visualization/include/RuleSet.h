@@ -6,6 +6,7 @@
 #include <iomanip>
 #include <fstream>
 #include <vector>
+#include <bits/stdc++.h>
 class RuleSet : public Rule
 {
     public:
