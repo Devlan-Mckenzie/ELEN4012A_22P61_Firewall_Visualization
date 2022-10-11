@@ -1,9 +1,5 @@
 import Rule
 
-#r1 = Rule.Rule("192.168.1.1","Accepted")
-
-#print(r1)
-
 class RuleSet:
 
     Rules = []
@@ -12,11 +8,24 @@ class RuleSet:
         self.fileName = "Python\\Firewall_Visualization\\" + fileName
     
     def importRules(self):
-        print("The importRules function was called successfully")
-        print(self.fileName)
-        newRule = Rule.Rule("192.168.1.1","Accepted")
-        self.Rules.append(newRule)
-        print(self.Rules[0])
+        print("The file path is " + self.fileName)
+
         #Attempting to read in the textfile 
-        file = open(self.fileName,'rt')
-        print(file.read())
+        try:
+            file = open(self.fileName,'rt')
+            for x in file:
+                # Each x is a single line of the file
+                # Use the split functionality to seperate the fields 
+                # Assign the fields to a new rule and append it to the rules array
+                tempArr = x.split()
+                newRule = Rule.Rule(tempArr[0],tempArr[1])
+                self.Rules.append(newRule)
+
+            if len(self.Rules) > 0:
+                print("The following is a list of the stored rules in the Ruleset:")
+                for x in self.Rules:
+                    print(x)
+
+        except:
+            print("File not found")
+        
