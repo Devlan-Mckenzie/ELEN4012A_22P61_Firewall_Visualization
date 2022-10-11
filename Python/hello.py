@@ -39,3 +39,20 @@ for col in rules_columns:
         p+=1
 print(len(col))
 updated_content =' '.join(map(str,rule_list))
+
+rules = []
+clean_rules = []
+rr = re.compile('\n')
+clean_rules += rr.sub("", updated_content).split(" ")      
+
+
+for q in rules_columns:
+    fields = []
+    i=1
+    add = False
+    for x in clean_rules:
+        if x == q:
+            fields.append(clean_rules[i])
+            add = True
+        i+=1
+    rules.append(fields)
