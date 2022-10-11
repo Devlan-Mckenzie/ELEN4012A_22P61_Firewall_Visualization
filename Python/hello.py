@@ -56,3 +56,12 @@ for q in rules_columns:
             add = True
         i+=1
     rules.append(fields)
+
+a=0
+dict = {}
+while a < len(rules_columns):
+    dict[rules_columns[a]]=rules[a]
+    a+=1
+#print(col)
+df = pd.DataFrame(dict)
+print(df)
