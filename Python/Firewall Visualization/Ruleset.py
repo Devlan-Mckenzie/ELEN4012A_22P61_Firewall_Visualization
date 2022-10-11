@@ -14,3 +14,6 @@ class RuleSet:
     def importRules(self):
         print("The importRules function was called successfully")
         print(self.fileName)
+        newRule = Rule.Rule("192.168.1.1","Accepted")
+        self.Rules.append(newRule)
+        print(self.Rules[0])
