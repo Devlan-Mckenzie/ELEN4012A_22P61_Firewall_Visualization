@@ -29,3 +29,13 @@ for rule in rule_list:
         if ((s!=-1) and (c == False)):
             rules_columns.append(field)
             continue
+
+for col in rules_columns:
+    p=0
+    for rule_ in rule_list:
+        b = rule_.find(col)
+        if b == -1:
+            rule_list[p] = rule_list[p] + col + " $ "
+        p+=1
+print(len(col))
+updated_content =' '.join(map(str,rule_list))
