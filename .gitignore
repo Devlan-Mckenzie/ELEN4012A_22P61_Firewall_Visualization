@@ -30,3 +30,7 @@
 *.exe
 *.out
 *.app
+
+# Files
+.venv/*
+Python/Rules.txt
