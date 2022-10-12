@@ -10,5 +10,7 @@ def main():
     #Take the DataFrame and pass it to a ruleset function which will allow for the rule generation
     # can index individual fields by using myDF.iloc[0,0] etc 
     myRuleSet.importFromDataFrame(myDF) 
+    testRule = myRuleSet.Rules[0]
+    print(testRule.S_Flag)
 
 main()
