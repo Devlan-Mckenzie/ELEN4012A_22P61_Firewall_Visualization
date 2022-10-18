@@ -74,3 +74,9 @@ class Rule:
         # an example IP would be 169.213.14.0/16 and 
         # returns 169.213.14 as the network id 
         return (self.getIPBreakDownByPart(1) + "." + self.getIPBreakDownByPart(2) + "." + self.getIPBreakDownByPart(3))
+    
+    def getIPHostID(self):
+        # Returns the last part of an IP string
+        # an example IP would be 169.213.14.0/16 and 
+        # returns 0/16 as the Host id
+        return (self.getIPBreakDownByPart(4))
