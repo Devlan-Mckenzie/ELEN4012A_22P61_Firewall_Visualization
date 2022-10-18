@@ -19,5 +19,6 @@ def main():
     print(testRule.getIPBreakDownByPart(3))
     print(testRule.getIPBreakDownByPart(4))
     print(testRule.getIPBreakDownByPart(5))
+    print(testRule.getIPNetworkID())
 
 main()

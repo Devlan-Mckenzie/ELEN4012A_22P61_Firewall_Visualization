@@ -68,3 +68,9 @@ class Rule:
             
         except:
             print("An error occured when trying to break the IP string")
+    
+    def getIPNetworkID(self):
+        # Returns the first 3 parts of a IP string 
+        # an example IP would be 169.213.14.0/16 and 
+        # returns 169.213.14 as the network id 
+        return (self.getIPBreakDownByPart(1) + "." + self.getIPBreakDownByPart(2) + "." + self.getIPBreakDownByPart(3))
