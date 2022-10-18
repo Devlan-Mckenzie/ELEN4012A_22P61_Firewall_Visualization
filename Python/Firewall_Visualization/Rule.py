@@ -20,7 +20,7 @@ class Rule:
 
     def __str__(self):
         return f"{self.A_Flag,self.S_Flag,self.J_Flag,self.P_Flag,self.M_Flag,self.State_Flag,self.Dport_Flag}"
-
+    
     # def getA_Flag(self):
     #     return f"{self.A_Flag}"
 
@@ -41,3 +41,30 @@ class Rule:
 
     # def getDport_Flag(self):
     #     return self.Dport_Flag
+
+    def getIPBreakDownByPart(self,part):
+        # Takes in an interger as variable part and returns the spot as string
+        # an example IP would be 169.213.14.0/16 and 
+        # part 1 = 169
+        # part 2 = 213 
+        # part 3 = 14 
+        # part 4 = 0/16
+        try:
+
+            if(part < 1 or part > 4):
+                print("The part number ranges from 1 to 4 thus " + str(part) + " is not a valid part number")
+                return
+            
+            # Break apart the string using '.' as a delimiter 
+            parts = self.S_Flag.split(".")
+            if(part == 1):
+                return parts[0]    
+            if(part == 2):
+                return parts[1] 
+            if(part == 3):
+                return parts[2] 
+            if(part == 4):
+                return parts[3] 
+            
+        except:
+            print("An error occured when trying to break the IP string")

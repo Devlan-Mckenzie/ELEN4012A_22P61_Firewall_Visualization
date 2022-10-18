@@ -13,4 +13,11 @@ def main():
     testRule = myRuleSet.Rules[0]
     print(testRule.S_Flag)
 
+    print(testRule.getIPBreakDownByPart(0))
+    print(testRule.getIPBreakDownByPart(1))
+    print(testRule.getIPBreakDownByPart(2))
+    print(testRule.getIPBreakDownByPart(3))
+    print(testRule.getIPBreakDownByPart(4))
+    print(testRule.getIPBreakDownByPart(5))
+
 main()
