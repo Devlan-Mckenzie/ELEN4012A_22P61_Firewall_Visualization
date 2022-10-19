@@ -21,26 +21,26 @@ class Rule:
     def __str__(self):
         return f"{self.A_Flag,self.S_Flag,self.J_Flag,self.P_Flag,self.M_Flag,self.State_Flag,self.Dport_Flag}"
     
-    # def getA_Flag(self):
-    #     return f"{self.A_Flag}"
+    def getA_Flag(self):
+        return self.A_Flag
 
-    # def getS_Flag(self):
-    #     return self.S_Flag
+    def getS_Flag(self):
+        return self.S_Flag
 
-    # def getJ_Flag(self):
-    #     return self.J_Flag
+    def getJ_Flag(self):
+        return self.J_Flag
 
-    # def getP_Flag(self):
-    #     return self.P_Flag
+    def getP_Flag(self):
+        return self.P_Flag
 
-    # def getM_Flag(self):
-    #     return self.M_Flag
+    def getM_Flag(self):
+        return self.M_Flag
 
-    # def getState_Flag(self):
-    #     return self.State_Flag
+    def getState_Flag(self):
+        return self.State_Flag
 
-    # def getDport_Flag(self):
-    #     return self.Dport_Flag
+    def getDport_Flag(self):
+        return self.Dport_Flag
 
     def getIPBreakDownByPart(self,part):
         # Takes in an interger as variable part and returns the spot as string

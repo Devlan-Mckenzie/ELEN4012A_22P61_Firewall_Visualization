@@ -11,7 +11,7 @@ def main():
     # can index individual fields by using myDF.iloc[0,0] etc 
     myRuleSet.importFromDataFrame(myDF) 
     testRule = myRuleSet.Rules[0]
-    print(testRule.S_Flag)
+    print(testRule.getS_Flag())
 
     print(testRule.getIPBreakDownByPart(0))
     print(testRule.getIPBreakDownByPart(1))
