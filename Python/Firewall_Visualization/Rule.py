@@ -20,24 +20,63 @@ class Rule:
 
     def __str__(self):
         return f"{self.A_Flag,self.S_Flag,self.J_Flag,self.P_Flag,self.M_Flag,self.State_Flag,self.Dport_Flag}"
+    
+    def getA_Flag(self):
+        return self.A_Flag
 
-    # def getA_Flag(self):
-    #     return f"{self.A_Flag}"
+    def getS_Flag(self):
+        return self.S_Flag
 
-    # def getS_Flag(self):
-    #     return self.S_Flag
+    def getJ_Flag(self):
+        return self.J_Flag
 
-    # def getJ_Flag(self):
-    #     return self.J_Flag
+    def getP_Flag(self):
+        return self.P_Flag
 
-    # def getP_Flag(self):
-    #     return self.P_Flag
+    def getM_Flag(self):
+        return self.M_Flag
 
-    # def getM_Flag(self):
-    #     return self.M_Flag
+    def getState_Flag(self):
+        return self.State_Flag
 
-    # def getState_Flag(self):
-    #     return self.State_Flag
+    def getDport_Flag(self):
+        return self.Dport_Flag
 
-    # def getDport_Flag(self):
-    #     return self.Dport_Flag
+    def getIPBreakDownByPart(self,part):
+        # Takes in an interger as variable part and returns the spot as string
+        # an example IP would be 169.213.14.0/16 and 
+        # part 1 = 169
+        # part 2 = 213 
+        # part 3 = 14 
+        # part 4 = 0/16
+        try:
+
+            if(part < 1 or part > 4):
+                print("The part number ranges from 1 to 4 thus " + str(part) + " is not a valid part number")
+                return
+            
+            # Break apart the string using '.' as a delimiter 
+            parts = self.S_Flag.split(".")
+            if(part == 1):
+                return parts[0]    
+            if(part == 2):
+                return parts[1] 
+            if(part == 3):
+                return parts[2] 
+            if(part == 4):
+                return parts[3] 
+            
+        except:
+            print("An error occured when trying to break the IP string")
+    
+    def getIPNetworkID(self):
+        # Returns the first 3 parts of a IP string 
+        # an example IP would be 169.213.14.0/16 and 
+        # returns 169.213.14 as the network id 
+        return (self.getIPBreakDownByPart(1) + "." + self.getIPBreakDownByPart(2) + "." + self.getIPBreakDownByPart(3))
+    
+    def getIPHostID(self):
+        # Returns the last part of an IP string
+        # an example IP would be 169.213.14.0/16 and 
+        # returns 0/16 as the Host id
+        return (self.getIPBreakDownByPart(4))
