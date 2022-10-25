@@ -17,6 +17,7 @@ contents = contents.replace('-','')
 #import dd.autoref as _bdd
 from dd import autoref as _bdd
 
+
 rule_list = []
 r = re.compile('')
 rule_list += r.sub("", contents).split("\n")
@@ -35,25 +36,32 @@ for rule in rule_list:
             rules_columns.append(field)
             continue
     play_rules.append(broken_rule)
-print(play_rules)
+
 
 bdd = _bdd.BDD()
+def addr_exp(addr):
+    sigBits=0;
+    broken_addr = []
+    broken_addr += r.sub("",addr).split(".")
+    for num in broken_addr:
+        if num.find('/') != -1:
+            lastnum = []
+            lastnum += r.sub("",num).split("/")
+            sigBits = lastnum[1]
+            num = lastnum[0]
+            broken_addr[3] = num
+        bdd.declare(num)
+    s= r'{a}&{b}&{c}&{d}'.format(a=broken_addr[0],b=broken_addr[1],c=broken_addr[2], d = broken_addr[3])
+    # c = bdd.add_expr(s)
+    print(s)
 
-IP_list =[]
+
 for RULE in play_rules:
-    IP_addr = []
     for FIELD in RULE:
-        s = FIELD.find('.')
-        if s!=-1 : 
-            IP_addr +=  r.sub("", FIELD).split(".")
-            IP_list.append(IP_addr)
-            for o in IP_addr:
-                bdd.declare(o)
-                #print(o)
-                continue
+        if FIELD.find('.') != -1 : 
+            addr_exp(FIELD)
         bdd.declare(FIELD)
-        #print(FIELD)
-        #print(FIELD)
+print(play_rules)
 
 for run in play_rules:
     i = 0
@@ -63,7 +71,7 @@ for run in play_rules:
         a = run[i]
         b = run[i+1]
         s= r'{a}/\{b}'.format(b=b,a=a)
-        print(s)
+        
        # c = bdd.add_expr(s)
         # print(c)
         # print(s)
