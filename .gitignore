@@ -30,3 +30,8 @@
 *.exe
 *.out
 *.app
+
+# Files
+.venv/*
+Python/Rules.txt
+Python/Firewall_Visualization/Rules.txt

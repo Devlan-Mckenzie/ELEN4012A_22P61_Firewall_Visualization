@@ -8,7 +8,7 @@ if sys.version_info[0] < 3:
 else:
     from io import StringIO
 
-with open(sys.argv[1], 'r') as f:
+with open("Python\Rules.txt", 'r') as f:
     contents = f.read()
 contents = contents.replace('-','')
 # contents = contents.replace('.','P')
