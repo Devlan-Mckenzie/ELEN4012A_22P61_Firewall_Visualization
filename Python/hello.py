@@ -1,3 +1,5 @@
+from cmath import exp
+from sre_parse import State
 import sys
 from turtle import update
 import pandas as pd
@@ -8,7 +10,7 @@ if sys.version_info[0] < 3:
 else:
     from io import StringIO
 
-with open("Python\Rules.txt", 'r') as f:
+with open(sys.argv[1], 'r') as f:
     contents = f.read()
 contents = contents.replace('-','')
 # contents = contents.replace('.','P')
@@ -40,9 +42,10 @@ for rule in rule_list:
 
 bdd = _bdd.BDD()
 def addr_exp(addr):
-    sigBits=0;
+    sigBits=0
     broken_addr = []
     broken_addr += r.sub("",addr).split(".")
+   
     for num in broken_addr:
         if num.find('/') != -1:
             lastnum = []
@@ -51,35 +54,55 @@ def addr_exp(addr):
             num = lastnum[0]
             broken_addr[3] = num
         bdd.declare(num)
+    
     s= r'{a}&{b}&{c}&{d}'.format(a=broken_addr[0],b=broken_addr[1],c=broken_addr[2], d = broken_addr[3])
+    return s
     # c = bdd.add_expr(s)
-    print(s)
+    # print(s)
 
 
 for RULE in play_rules:
-    for FIELD in RULE:
-        if FIELD.find('.') != -1 : 
-            addr_exp(FIELD)
-        bdd.declare(FIELD)
-print(play_rules)
-
-for run in play_rules:
     i = 0
-    rule_exp =[]
-    
-    while i < len(run):
-        a = run[i]
-        b = run[i+1]
-        s= r'{a}/\{b}'.format(b=b,a=a)
-        
-       # c = bdd.add_expr(s)
-        # print(c)
-        # print(s)
+    expF = r''
+    while i<len(RULE):
+        a = RULE[i]
+        b = RULE[i+1]
+        bdd.declare(a)
+        bdd.declare(b)
+        if RULE[i+1].find('.') != -1 : 
+            b = addr_exp(RULE[i+1])
+        s = r'(\E {a}: {b})'.format(b=b,a=a)
         i+=2
         if a == "j":
-            state_ = c
+            decision = b
             continue
-        rule_exp.append(c)
+        if expF == r'':
+            expF = r'{s}'.format(s=s)
+            continue
+        expF = r'{e}&{s}'.format(e=expF,s=s)
+    RRule = r'{q}<=>({s})'.format(q=decision,s=expF)
+    uR = bdd.add_expr(RRule)
+    print(RRule)
+    print(bdd.to_expr(uR))
+ 
+
+# for run in play_rules:
+#     i = 0
+#     rule_exp =[]
+    
+#     while i < len(run):
+#         a = run[i]
+#         b = run[i+1]
+#         s= r'{a}/\{b}'.format(b=b,a=a)
+        
+#        # c = bdd.add_expr(s)
+#         # print(c)
+#         # print(s)
+#         i+=2
+#         if a == "j":
+#             state_ = c
+#             continue
+#         rule_exp.append(c)
 
     # n = rule_exp[0]    
     # rule_bdd = r'{state_} <=> {n}'.format(state_=state_,n=n)
