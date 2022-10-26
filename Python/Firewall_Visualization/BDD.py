@@ -60,6 +60,18 @@ def generateFieldBoolExpressions(rule:Rule):
     State_Flag_Bool = exprvar("State_Flag_Bool")
     Dport_Flag_Bool = exprvar("Dport_Flag_Bool")
 
+    # can now implement some logic to check the passed rule fields exist etc and based on that create a more refined boolean rule
+    # Using the truth table will allow for simple evaluation of rules 
+    # then once a single rule has been converted into an expression correctly I believe they can be stored in either an farray (function array) or one can potentially 
+    # store the expression variables in an array using A = exprvars('a',4,4). Ideally the expression will be stored and then added together at the end to create the 
+    # entire ruleset as a BDD
+    
+    #By using logic one can set the variables as well to limit the truth table size 
+    # This has been tested and seen to work with the below code
+    A_Flag_Bool = expr(1)
+    S_Flag_Bool = expr(1)
+    J_Flag_Bool = expr(0)
+
     boolean_Rule = expr((A_Flag_Bool) & (S_Flag_Bool) & (J_Flag_Bool) & (P_Flag_Bool) & (M_Flag_Bool) & (State_Flag_Bool) & (Dport_Flag_Bool))
     print(boolean_Rule)
     print('This is the truth table for a rule \n')
