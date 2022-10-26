@@ -29,4 +29,7 @@ def main():
 
     output = BDD.generateBoolExpression(testRule,testRule2)
     print(output)
+
+    output = BDD.generateFieldBoolExpressions(testRule)
+    print(output)
 main()

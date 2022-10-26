@@ -43,3 +43,25 @@ def generateBoolExpression(packet:Rule,rule:Rule):
     boolean_Rule = expr((packet.A_Flag == rule.A_Flag) & (packet.S_Flag == rule.S_Flag) & (packet.J_Flag == rule.J_Flag) & (packet.P_Flag == rule.P_Flag) & (packet.M_Flag == rule.M_Flag) & (packet.State_Flag == rule.State_Flag) & (packet.Dport_Flag == rule.Dport_Flag))
     print(boolean_Rule)
     return(boolean_Rule)
+
+def generateFieldBoolExpressions(rule:Rule):
+    # This function will take  in a rule and convert each field into a variabvle for the BDD in this way each node is a single field
+    # This will result in a BDD for the entire rule with each node representing a field in a rule 
+
+    # Going to have each field as an expression and then use the and operator to make them all link
+    # For now this is simple logic and more advanced logic should check if the fields exist and go from there
+    # Currently cannot simply add the fields and will likely need to add a variable to the BDD to represent them
+    # Going to create a set of expression variable to represent each field possible in a rule
+    A_Flag_Bool = exprvar("A_Flag_Bool")
+    S_Flag_Bool = exprvar("S_Flag_Bool")
+    J_Flag_Bool = exprvar("J_Flag_Bool")
+    P_Flag_Bool = exprvar("P_Flag_Bool")
+    M_Flag_Bool = exprvar("M_Flag_Bool")
+    State_Flag_Bool = exprvar("State_Flag_Bool")
+    Dport_Flag_Bool = exprvar("Dport_Flag_Bool")
+
+    boolean_Rule = expr((A_Flag_Bool) & (S_Flag_Bool) & (J_Flag_Bool) & (P_Flag_Bool) & (M_Flag_Bool) & (State_Flag_Bool) & (Dport_Flag_Bool))
+    print(boolean_Rule)
+    print('This is the truth table for a rule \n')
+    print(expr2truthtable(boolean_Rule))
+    return(boolean_Rule)
