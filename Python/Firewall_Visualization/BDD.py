@@ -52,14 +52,50 @@ def generateFieldBoolExpressions(rule:Rule):
     # For now this is simple logic and more advanced logic should check if the fields exist and go from there
     # Currently cannot simply add the fields and will likely need to add a variable to the BDD to represent them
     # Going to create a set of expression variable to represent each field possible in a rule
-    A_Flag_Bool = exprvar("A_Flag_Bool")
-    S_Flag_Bool = exprvar("S_Flag_Bool")
-    J_Flag_Bool = exprvar("J_Flag_Bool")
-    P_Flag_Bool = exprvar("P_Flag_Bool")
-    M_Flag_Bool = exprvar("M_Flag_Bool")
-    State_Flag_Bool = exprvar("State_Flag_Bool")
-    Dport_Flag_Bool = exprvar("Dport_Flag_Bool")
 
+    # A_Flag_Bool = exprvar("A_Flag_Bool")
+    # S_Flag_Bool = exprvar("S_Flag_Bool")
+    # J_Flag_Bool = exprvar("J_Flag_Bool")
+    # P_Flag_Bool = exprvar("P_Flag_Bool")
+    # M_Flag_Bool = exprvar("M_Flag_Bool")
+    # State_Flag_Bool = exprvar("State_Flag_Bool")
+    # Dport_Flag_Bool = exprvar("Dport_Flag_Bool")
+
+    # Changing the generic names of the variables to match the rule field values 
+    # The following shows the expected flag values for the various fields
+        # A_Flag shows direction like input or output
+        # S_Flag shows Ip 
+        # J_Flag shows status like Accept or Drop
+        # P_Flag shows protocol like tcp
+        # M_Flag shows state or multiport 
+        # State_Flag shows if a connection has been established 
+        # Dport_Flag shows which port is the destination port like 25 etc 
+    # Additionally if the field is empty then a "$" is the field value and if that field does not 'exist' then just make it true and the truth table will ommit it 
+    # So A_Flag_Bool will be something like 'INPUT'
+    A_Flag_Bool = exprvar('A: ' + str(rule.A_Flag))
+    S_Flag_Bool = exprvar('S: ' + str(rule.S_Flag))
+    J_Flag_Bool = exprvar('J: ' + str(rule.J_Flag))
+    P_Flag_Bool = exprvar('P: ' + str(rule.P_Flag))
+    M_Flag_Bool = exprvar('M: ' + str(rule.M_Flag))
+    State_Flag_Bool = exprvar('State: ' + str(rule.State_Flag))
+    Dport_Flag_Bool = exprvar('Dport: ' + str(rule.Dport_Flag))
+
+    # Going to try and make the '$' value true and ommit it from the truth table 
+    # Only issue is that the name is lost but the name was $ so nothing is lost 
+    if(A_Flag_Bool.name == 'A: $'):
+        A_Flag_Bool = expr(1)
+    if(S_Flag_Bool.name == 'S: $'):
+        S_Flag_Bool = expr(1)
+    if(J_Flag_Bool.name == 'J: $'):
+        J_Flag_Bool = expr(1)
+    if(P_Flag_Bool.name == 'P: $'):
+        P_Flag_Bool = expr(1)
+    if(M_Flag_Bool.name == 'M: $'):
+        M_Flag_Bool = expr(1)
+    if(State_Flag_Bool.name == 'State: $'):
+        State_Flag_Bool = expr(1)
+    if(Dport_Flag_Bool.name == 'Dport: $'):
+        Dport_Flag_Bool = expr(1)
     # can now implement some logic to check the passed rule fields exist etc and based on that create a more refined boolean rule
     # Using the truth table will allow for simple evaluation of rules 
     # then once a single rule has been converted into an expression correctly I believe they can be stored in either an farray (function array) or one can potentially 
@@ -68,12 +104,15 @@ def generateFieldBoolExpressions(rule:Rule):
     
     #By using logic one can set the variables as well to limit the truth table size 
     # This has been tested and seen to work with the below code
-    A_Flag_Bool = expr(1)
-    S_Flag_Bool = expr(1)
-    J_Flag_Bool = expr(0)
+    # A_Flag_Bool = expr(1)
+    # S_Flag_Bool = expr(1)
+    # J_Flag_Bool = expr(0)
 
     boolean_Rule = expr((A_Flag_Bool) & (S_Flag_Bool) & (J_Flag_Bool) & (P_Flag_Bool) & (M_Flag_Bool) & (State_Flag_Bool) & (Dport_Flag_Bool))
     print(boolean_Rule)
+    print("This is the simplified boolean rule")
+    simplified_Boolean_Rule = boolean_Rule.simplify()
+    print(simplified_Boolean_Rule)
     print('This is the truth table for a rule \n')
-    print(expr2truthtable(boolean_Rule))
-    return(boolean_Rule)
+    print(expr2truthtable(simplified_Boolean_Rule))
+    return(simplified_Boolean_Rule)
