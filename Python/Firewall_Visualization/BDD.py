@@ -3,9 +3,9 @@ from pyeda.inter import *
 import Rule
 import Ruleset
 
-f = expr("a & b | a & c | b & c")
+#f = expr("a & b | a & c | b & c")
 #print(f)
-f = expr2bdd(f)
+#f = expr2bdd(f)
 #print(f)
 # a,b,c = map(bddvar,'abc')
 # type(a)
@@ -27,12 +27,12 @@ f = expr2bdd(f)
 # print(list(f.satisfy_all()))
 
 # lets try make a rule as a boolean expression 
-a = 1
-b = 2
-c = 1
-boolean_Rule = expr((a > b)|(a < c)|('test' == "test"))
-#print(boolean_Rule)
-boolean_Rule = expr2bdd(boolean_Rule)
+# a = 1
+# b = 2
+# c = 1
+# boolean_Rule = expr((a > b)|(a < c)|('test' == "test"))
+# #print(boolean_Rule)
+# boolean_Rule = expr2bdd(boolean_Rule)
 #print(boolean_Rule)
 # this shows that numbers and string can be used together 
 # This equates to direct boolean equations and thus allows for direct comparison of a request packet and a rule 
@@ -123,6 +123,12 @@ def generateFieldBoolExpressions(rule:Rule):
     # should be Or(And(A: INPUT, S: 169.213.14.0/16, J: ACCEPT), And(A: INPUT, S: 169.213.14.0/16, J: ACCEPT))
     #print(test_Bool_Expression)
 
+    # IMPORTANT
+    # After printing out the expressions versus the simplified expressions
+    # It became apparent that there is no need to further complicate the expression creation as the simplify function removed the '1' variables which were the '$'
+    # An example would be this 
+    # Original: And(And(And(And(And(And(A: INPUT, S: 169.213.14.0/16), J: ACCEPT), 1), 1), 1), 1)
+    # Simplified: And(A: INPUT, S: 169.213.14.0/16, J: ACCEPT)
     return(simplified_Boolean_Rule)
 
     # Create a function which will take in an entire rule set and then pass each rule to the generateFieldBoolExpressions() function 
@@ -133,23 +139,41 @@ def generateBDDBoolExpression(ruleset:Ruleset):
     BDDExpressionArray = []
     for x in ruleset.Rules:
         fieldBoolExpr = generateFieldBoolExpressions(x)
-        #print(output)
+        #print(fieldBoolExpr)
+        # This print confirms that the BDD never sees the '$' variables or the '1' variables
         BDDExpressionArray.append(fieldBoolExpr)
     
-    tempExpr = expr((BDDExpressionArray[0]) | (BDDExpressionArray[1]))
+    # Check to see if the array has atleast 2 elements in it
+    if(len(BDDExpressionArray) < 2 ):
+        # if the array has less than 2 elements it assings only 1 element
+        tempExpr = BDDExpressionArray[0]
+    else:
+        # if the array has 2 or more elements then it creates an expression using the first 2 
+        tempExpr = expr((BDDExpressionArray[0]) | (BDDExpressionArray[1]))
+    
+    # if the array has 2 elements or less then this for loop wont trigger
     for i in range(2,len(BDDExpressionArray)):
         tempExpr = expr(tempExpr | (BDDExpressionArray[i]))
-    print('\n')
-    print(expr2truthtable(tempExpr))
+    #print('\n')
+    #print(expr2truthtable(tempExpr))
 
+    # This simplify function should remove any redundancy and lower the depth of the expression  
+    #print('Before Simplify')
+    #print(tempExpr.depth)
     tempExpr = tempExpr.simplify()
+    #print('After Simplify')
+    #print(tempExpr.depth)
     return tempExpr
 
 def generateBDDfromExpr(expression:Expression):
     # Take in an expression and return a bdd
+    # It might be possible to reorder the bdd in a more optimized way using the following line of code
+    # However in order to use this method one would need to rename the variables which may prove difficult due to the dynamic nature of the bdd variables
+    #composedOutputBDD = outputBDD.compose()
+    #print(len(_NODES))
+    #for x in list(outputBDD.satisfy_all()):
+        #print(x)
     outputBDD = expr2bdd(expr(expression))
     from pyeda.boolalg.bdd import _NODES
-    print(len(_NODES))
-    for x in list(outputBDD.satisfy_all()):
-        print(x)
+    print('The number of nodes required to implement the BDD is ' + str(len(_NODES)))
     return outputBDD

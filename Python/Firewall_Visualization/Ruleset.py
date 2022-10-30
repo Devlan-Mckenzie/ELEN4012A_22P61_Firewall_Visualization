@@ -46,9 +46,9 @@ class RuleSet:
                 newRule = Rule.Rule(DF_Row[0],DF_Row[1],DF_Row[2],DF_Row[3],DF_Row[4],DF_Row[5],DF_Row[6])
                 self.Rules.append(newRule)
             
-            if len(self.Rules) > 0:
-                print("The following is a list of the stored rules in the Ruleset:")
-                for x in self.Rules:
-                    print(x)
+            #if len(self.Rules) > 0:
+                #print("The following is a list of the stored rules in the Ruleset:")
+                #for x in self.Rules:
+                    #print(x)
         except:
             print("An error occured while trying to read in the dataframe in RuleSet class")

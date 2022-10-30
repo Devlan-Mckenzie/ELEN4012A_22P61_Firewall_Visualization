@@ -26,6 +26,7 @@ def main():
     # testRule2 = myRuleSet.Rules[1]
     #print(testRule.S_Flag)
 
+    # Compares a packet to a rule and gives a boolean output
     #output = BDD.generateBoolExpression(testRule,testRule2)
     #print(output)
 
