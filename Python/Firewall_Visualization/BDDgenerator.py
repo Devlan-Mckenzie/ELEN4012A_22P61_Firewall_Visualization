@@ -54,11 +54,17 @@ import Ruleset
 
 def generateBoolExpression(ruleCode,fieldCode):
     print("Chavi")
+
     ruleBool=''
     for a in fieldCode:
         print(a)
         print(ruleCode[a])
-        ruleBool = ruleBool & makeExpression(a,ruleCode[a])
+        # Added an if statement to check if this is the first iteration of the loop, which errored before as the ruleBool was '' which was not an expression term
+        if ruleBool == '':
+            ruleBool = makeExpression(a,ruleCode[a])
+        else:
+            ruleBool = (ruleBool & makeExpression(a,ruleCode[a]))
+        
     return ruleBool
 
 def makeExpression(tag,flag):
@@ -67,7 +73,10 @@ def makeExpression(tag,flag):
     return expr(tag == flag)
 
 def getRuleStatus(rule:Rule):
-    return rule.ruleFlags['-j']
+    # It appears that the rule flags property is not set or detected as a parameter however the '-j' flag is set as a property which I have called here
+    # The functionality should remain the same as before
+    #return rule.ruleFlags['-j']
+    return rule['-j']
 
 def generateBDDBoolExpression(ruleset:Ruleset,fields:Ruleset): 
     if len(ruleset)==0:
@@ -77,7 +86,12 @@ def generateBDDBoolExpression(ruleset:Ruleset,fields:Ruleset):
         ruleBook = ''
         i=0
         while i<len(ruleset):
-            ruleBook = ruleBook | (generateBoolExpression(ruleset[i],fields[i]))
+            # Added an if statement to check if this is the first iteration of the loop, which errored before as the ruleBool was '' which was not an expression term
+            if ruleBook == '':
+                ruleBook = (generateBoolExpression(ruleset[i],fields[i]))
+            else:
+                ruleBook = (ruleBook | (generateBoolExpression(ruleset[i],fields[i])))
+            
             print(ruleBook)
             if getRuleStatus(ruleset[i]) == 'ACCEPT':
                 print("Rule is accepted")
@@ -86,7 +100,7 @@ def generateBDDBoolExpression(ruleset:Ruleset,fields:Ruleset):
 
 
 
-def generateBDDfromExpr(exprRules):
+def generateBDDfromExpr(exprRules:Expression):
     # Take in an expression and return a bdd
     # It might be possible to reorder the bdd in a more optimized way using the following line of code
     # However in order to use this method one would need to rename the variables which may prove difficult due to the dynamic nature of the bdd variables
@@ -94,7 +108,15 @@ def generateBDDfromExpr(exprRules):
     #print(len(_NODES))
     #for x in list(outputBDD.satisfy_all()):
         #print(x)
-    outputBDD = expr2bdd(expr(exprRules))
+    #####################################################################
+    # This errors out as the nonetype  has no properties called names 
+    # To get around this fact I have used the simplify command on the expressions which has resolved the issue 
+    # The exact origin of the issue remains unknown at this time however
+    
+    simplifiedExprRules = exprRules.simplify()
+    outputBDD = expr2bdd(simplifiedExprRules)
+    
+    #####################################################################
     from pyeda.boolalg.bdd import _NODES
     print('The number of nodes required to implement the BDD is ' + str(len(_NODES)))
     return outputBDD
