@@ -19,13 +19,16 @@ class Rule:
         # self.State_Flag = State_Flag
         # self.Dport_Flag = Dport_Flag 
         flagPair = {}
+        flags = []
         i=0
         while i<len(newRule):
             a = newRule[i]
             b = newRule[i+1]
             flagPair[a]=b
+            flags.append(a)
             i+=2
         self.ruleFlags = flagPair
+        self.flagTags = flags
         
             
 
@@ -33,11 +36,17 @@ class Rule:
     # def __str__(self):
     #     return f"{self.A_Flag,self.S_Flag,self.J_Flag,self.P_Flag,self.M_Flag,self.State_Flag,self.Dport_Flag}"
     
+    #This part returns every tag and flag pair stored in the dictionary ruleFlags
+    #As well as all the tags that the specific rule has in the flashTags list
     def __str__(self):
-        return f"{self.ruleFlags}"
+        return f"{self.ruleFlags,self.flagTags}"
 
     def getFlag(self,flag):
-        return self.ruleFlags[flag]
+        try:
+            if self.flagTags.__contains__(flag):
+                return self.ruleFlags[flag]
+        except:
+            print("This rule does not have the specified tag")
     # def getA_Flag(self):
     #     return self.A_Flag
 
