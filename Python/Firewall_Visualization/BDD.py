@@ -1,6 +1,6 @@
 from ast import If
 from pickle import TRUE
-from pyeda import *
+from pyeda.inter import *
 
 import Rule
 import Ruleset
