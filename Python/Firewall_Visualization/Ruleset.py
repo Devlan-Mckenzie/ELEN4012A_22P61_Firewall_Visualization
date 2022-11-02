@@ -3,9 +3,9 @@ import Rule
 class RuleSet:
 
     Rules = []
-
+    ruleFields = []
     def __init__(self,fileName):
-        self.fileName = "Python\\Firewall_Visualization\\" + fileName
+        self.fileName =  fileName
     
     def importRules(self):
         print("The file path is " + self.fileName)
@@ -20,7 +20,8 @@ class RuleSet:
                 tempArr = x.split()
                 # newRule = Rule.Rule(tempArr[0],tempArr[1])
                 newRule = Rule.Rule(tempArr)
-                self.Rules.append(newRule)
+                self.Rules.append(newRule.ruleFlags)
+                self.ruleFields.append(newRule.flagTags)
 
             if len(self.Rules) > 0:
                 print("The following is a list of the stored rules in the Ruleset:")
@@ -31,7 +32,7 @@ class RuleSet:
             print("File not found")
     
     def __str__(self):
-        return f"{self.Rules}"
+        return f"{self.Rules,self.ruleFields}"
 
     # def importFromDataFrame(self,dataframe):
         # passing a 2D dataframe which follows 

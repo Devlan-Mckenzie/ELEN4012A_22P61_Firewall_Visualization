@@ -52,33 +52,53 @@ import Ruleset
 
 #     return(boolean_Rule)
 
-def generateBoolExpression(rule:Rule):
-    for a in rule.flashTags:
-        ruleBool = ruleBool & makeExpression(a,rule.ruleFlags[a])
+def generateBoolExpression(ruleCode,fieldCode):
+    print("Chavi")
+    ruleBool=''
+    for a in fieldCode:
+        print(a)
+        print(ruleCode[a])
+        ruleBool = ruleBool & makeExpression(a,ruleCode[a])
     return ruleBool
 
 def makeExpression(tag,flag):
-    tag,flag = map(exprvar, r'{a}{b}'.format(a=tag,b=flag))
+    tag = map(exprvar, r'{a}'.format(a=tag))
+    flag = map(exprvar, r'{b}'.format(b=flag))
     return expr(tag == flag)
 
 def getRuleStatus(rule:Rule):
     return rule.ruleFlags['-j']
 
-exprRules =''
-def generateBDDBoolExpression(ruleset:Ruleset): 
-    
+def generateBDDBoolExpression(ruleset:Ruleset,fields:Ruleset): 
     if len(ruleset)==0:
-        return True
+        print("Cannot generate bollean expression")
     else:
-        for rr in ruleset:
-            ruleBook = ruleBook | (generateBoolExpression(rr))
-            exprRules = ruleBook
-            if getRuleStatus(rr) == 'ACCEPT':
+        print(ruleset[1])
+        ruleBook = ''
+        i=0
+        while i<len(ruleset):
+            ruleBook = ruleBook | (generateBoolExpression(ruleset[i],fields[i]))
+            print(ruleBook)
+            if getRuleStatus(ruleset[i]) == 'ACCEPT':
                 print("Rule is accepted")
-                return True
-        return False
+            i+=1
+        return ruleBook
 
-            
+
+
+def generateBDDfromExpr(exprRules):
+    # Take in an expression and return a bdd
+    # It might be possible to reorder the bdd in a more optimized way using the following line of code
+    # However in order to use this method one would need to rename the variables which may prove difficult due to the dynamic nature of the bdd variables
+    #composedOutputBDD = outputBDD.compose()
+    #print(len(_NODES))
+    #for x in list(outputBDD.satisfy_all()):
+        #print(x)
+    outputBDD = expr2bdd(expr(exprRules))
+    from pyeda.boolalg.bdd import _NODES
+    print('The number of nodes required to implement the BDD is ' + str(len(_NODES)))
+    return outputBDD
+
     # This function will take  in a rule and convert each field into a variabvle for the BDD in this way each node is a single field
 # This will result in a BDD for the entire rule with each node representing a field in a rule 
 
@@ -172,7 +192,7 @@ def generateBDDBoolExpression(ruleset:Ruleset):
 # After the function returns an expression it will be stored in an array/list of type Expression
 # then after some intialisation it will be summed together in the following way 
 # tempExpr = expr(tempExpr | arr[i])
-# def generateBDDBoolExpression(ruleset:Ruleset):
+#  def generateBDDBoolExpression(ruleset:Ruleset):
     BDDExpressionArray = []
     for x in ruleset.Rules:
         fieldBoolExpr = generateFieldBoolExpressions(x)
@@ -202,15 +222,15 @@ def generateBDDBoolExpression(ruleset:Ruleset):
     #print(tempExpr.depth)
     return tempExpr
 
-def generateBDDfromExpr():
-    # Take in an expression and return a bdd
-    # It might be possible to reorder the bdd in a more optimized way using the following line of code
-    # However in order to use this method one would need to rename the variables which may prove difficult due to the dynamic nature of the bdd variables
-    #composedOutputBDD = outputBDD.compose()
-    #print(len(_NODES))
-    #for x in list(outputBDD.satisfy_all()):
-        #print(x)
-    outputBDD = expr2bdd(expr(exprRules))
-    from pyeda.boolalg.bdd import _NODES
-    print('The number of nodes required to implement the BDD is ' + str(len(_NODES)))
-    return outputBDD
+# def generateBDDfromExpr():
+#     # Take in an expression and return a bdd
+#     # It might be possible to reorder the bdd in a more optimized way using the following line of code
+#     # However in order to use this method one would need to rename the variables which may prove difficult due to the dynamic nature of the bdd variables
+#     #composedOutputBDD = outputBDD.compose()
+#     #print(len(_NODES))
+#     #for x in list(outputBDD.satisfy_all()):
+#         #print(x)
+#     outputBDD = expr2bdd(expr(exprRules))
+#     from pyeda.boolalg.bdd import _NODES
+#     print('The number of nodes required to implement the BDD is ' + str(len(_NODES)))
+#     return outputBDD
