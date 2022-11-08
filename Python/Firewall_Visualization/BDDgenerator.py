@@ -85,6 +85,13 @@ def generateBoolExpression(ruleCode,fieldCode):
         #print("rule = ",ruleBool)
         # print("val = ",ruleCode[tag])  
         # print(makeExpression(tag,ruleCode[tag])) 
+    op=getRuleStatus(ruleCode)
+    # stat = expr(1)
+    # if op == "ACCEPT":
+    #     ruleBool=expr(1)
+    # else:
+    #     ruleBool=expr(0)
+    
     return ruleBool
 
 def makeExpression(tag,flag):
@@ -92,9 +99,8 @@ def makeExpression(tag,flag):
     flag = exprvar( r'{b}'.format(b=flag))
     s = tag & flag
     f = expr2truthtable(s)
-    # print("s = ", s)
     # print(truthtable2expr(f))
-    return expr(tag == flag)
+    return expr(flag)
 
 def getRuleStatus(rule:Rule):
     # It appears that the rule flags property is not set or detected as a parameter however the '-j' flag is set as a property which I have called here
@@ -104,9 +110,8 @@ def getRuleStatus(rule:Rule):
 
 def generateBDDBoolExpression(ruleset:Ruleset,fields:Ruleset): 
     if len(ruleset)==0:
-        print("Cannot generate bollean expression")
+        print("Cannot generate boolean expression")
     else:
-        print(ruleset[1])
         ruleBook = ''
         i=0
         while i<len(ruleset):
