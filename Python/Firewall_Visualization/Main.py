@@ -8,8 +8,7 @@ def main():
     myRuleSet = Ruleset.RuleSet(fileName)
     myRuleSet.importRules()
     myExpr= BDDgenerator.generateBDDBoolExpression(myRuleSet.Rules,myRuleSet.ruleFields)
-    myBDD = BDDgenerator.generateBDDfromExpr(myExpr)
-   
+    # myBDD = BDDgenerator.generateBDDfromExpr(myExpr)
     # print(myRuleSet.Rules)
     #myRuleSet.importRules()
     # myDF = DataFrame.generateDataFrame(fileName)

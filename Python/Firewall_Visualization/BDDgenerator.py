@@ -53,23 +53,47 @@ import Ruleset
 #     return(boolean_Rule)
 
 def generateBoolExpression(ruleCode,fieldCode):
-    print("Chavi")
+    # size = len(ruleCode)
+    # k = 2**size
+    # val =''
+    # while k>0:
+    #     if k==1:
+    #         val+='1'
+    #         k-=1
+    #         continue
+    #     val+='0'
+    #     k-=1
+    # # for code in ruleCode:
+    # #     if ruleCode[code] == 'ACCEPT':
+    # #         val+="1"
+    # #         continue
+    # #     val +="0"
+   
+    # print(ruleCode)
+    # X = exprvars('x', size)
+    # f = truthtable(X, val)
+    
+    # print(f)
 
     ruleBool=''
-    for a in fieldCode:
-        print(a)
-        print(ruleCode[a])
-        # Added an if statement to check if this is the first iteration of the loop, which errored before as the ruleBool was '' which was not an expression term
+    for tag in fieldCode:
+        #To check if this is the first iteration of the loop, which errored before as the ruleBool was '' which was not an expression term
         if ruleBool == '':
-            ruleBool = makeExpression(a,ruleCode[a])
+            ruleBool = makeExpression(tag,ruleCode[tag])
         else:
-            ruleBool = (ruleBool & makeExpression(a,ruleCode[a]))
-        
+            ruleBool = (ruleBool & makeExpression(tag,ruleCode[tag])) 
+        #print("rule = ",ruleBool)
+        # print("val = ",ruleCode[tag])  
+        # print(makeExpression(tag,ruleCode[tag])) 
     return ruleBool
 
 def makeExpression(tag,flag):
-    tag = map(exprvar, r'{a}'.format(a=tag))
-    flag = map(exprvar, r'{b}'.format(b=flag))
+    tag = exprvar( r'{a}'.format(a=tag))
+    flag = exprvar( r'{b}'.format(b=flag))
+    s = tag & flag
+    f = expr2truthtable(s)
+    # print("s = ", s)
+    # print(truthtable2expr(f))
     return expr(tag == flag)
 
 def getRuleStatus(rule:Rule):
