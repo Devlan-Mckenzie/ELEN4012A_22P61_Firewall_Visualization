@@ -67,7 +67,7 @@ def generateDataFrame(fileName):
             a+=1
         #print(col)
         df = pd.DataFrame(dict)
-        print(df)   
+        #print(df)   
         return df
     except:
         print("An error occured when trying to create the dataframe using that filename")
