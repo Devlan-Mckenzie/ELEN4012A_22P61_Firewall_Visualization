@@ -106,7 +106,12 @@ def getRuleStatus(rule:Rule):
     # It appears that the rule flags property is not set or detected as a parameter however the '-j' flag is set as a property which I have called here
     # The functionality should remain the same as before
     #return rule.ruleFlags['-j']
-    return rule['-j']
+    try:
+        return rule['-j']
+    except:
+        return 'NULL'
+
+    
 
 def generateBDDBoolExpression(ruleset:Ruleset,fields:Ruleset): 
     if len(ruleset)==0:
@@ -115,6 +120,14 @@ def generateBDDBoolExpression(ruleset:Ruleset,fields:Ruleset):
         ruleBook = ''
         i=0
         while i<len(ruleset):
+            # Need to check if the rule contains a j flag so moving the getRuleStatus to the start of the loop which can check before any actions are taken
+            if getRuleStatus(ruleset[i]) == 'NULL':
+                # The rule has no j flag or the j flag is drop 
+                i+=1
+                continue 
+            else:
+                print("Rule has a flag status")
+
             # Added an if statement to check if this is the first iteration of the loop, which errored before as the ruleBool was '' which was not an expression term
             if ruleBook == '':
                 ruleBook = (generateBoolExpression(ruleset[i],fields[i]))
@@ -122,8 +135,7 @@ def generateBDDBoolExpression(ruleset:Ruleset,fields:Ruleset):
                 ruleBook = (ruleBook | (generateBoolExpression(ruleset[i],fields[i])))
             
             print(ruleBook)
-            if getRuleStatus(ruleset[i]) == 'ACCEPT':
-                print("Rule is accepted")
+            
             i+=1
         return ruleBook
 

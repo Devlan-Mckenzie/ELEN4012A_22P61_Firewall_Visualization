@@ -35,3 +35,4 @@
 .venv/*
 Python/Rules.txt
 Python/Firewall_Visualization/Rules.txt
+Python/Firewall_Visualization/SampleRules.txt
