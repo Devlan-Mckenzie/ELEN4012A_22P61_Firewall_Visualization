@@ -14,7 +14,7 @@ def main():
     myBDD_2 = ''
     def welcomeSwitch(fileName_1,myRuleSet_1,myExpr_1,myBDD_1,fileName_2,myRuleSet_2,myExpr_2,myBDD_2,selectedOption):
 
-        if int(selectedOption) > 5:
+        if int(selectedOption) > 6:
             print("The option selected does not exist. Please select an option from those listed.")
             welcomePrints(fileName_1,myRuleSet_1,myExpr_1,myBDD_1,fileName_2,myRuleSet_2,myExpr_2,myBDD_2)
             return
@@ -49,6 +49,10 @@ def main():
             BDDgenerator.compareBDDs(myBDD_1,myBDD_2)
             welcomePrints(fileName_1,myRuleSet_1,myExpr_1,myBDD_1,fileName_2,myRuleSet_2,myExpr_2,myBDD_2)
             return 
+        elif int(selectedOption) == 6:
+            print("The selected option is 6")
+            print("Closing the program now")
+            return
     
     def welcomePrints(fileName_1,myRuleSet_1,myExpr_1,myBDD_1,fileName_2,myRuleSet_2,myExpr_2,myBDD_2):
         # self.fileName_1 = fileName_1
@@ -66,6 +70,7 @@ def main():
         print("3. Check if a packet would pass ruleset 1\n")
         print("4. Check if a packet would pass ruleset 2\n")
         print("5. Check if ruleset 1 is functionally equivalent to ruleset 2\n")
+        print("6. Quit the program\n")
 
         print("To correctly select an option please input the option number, for example to select option 1 type 1\n")
         print("A correct input would look like the following:")

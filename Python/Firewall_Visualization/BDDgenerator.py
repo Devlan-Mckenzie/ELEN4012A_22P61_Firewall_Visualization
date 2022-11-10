@@ -164,11 +164,15 @@ def generateBDDfromExpr(exprRules:Expression):
 
 # This function will take in 2 bdds and compare them for functional equivalence and return an answer 
 def compareBDDs(firstBDD:BinaryDecisionDiagram, secondBDD:BinaryDecisionDiagram):
-    if(firstBDD.equivalent(secondBDD)):
-        print("The BDDs are equivalent")
-    else:
-        print("The BDDs are not equivalent with one another")
-    return
+    try:
+        if(firstBDD.equivalent(secondBDD)):
+            print("The BDDs are equivalent")
+        else:
+            print("The BDDs are not equivalent with one another")
+        return
+    except:
+        print("An error occured, please ensure that you have loaded both ruleset 1 and ruleset 2 prior to using this function")
+        return
 
     # This function will take  in a rule and convert each field into a variabvle for the BDD in this way each node is a single field
 # This will result in a BDD for the entire rule with each node representing a field in a rule 
