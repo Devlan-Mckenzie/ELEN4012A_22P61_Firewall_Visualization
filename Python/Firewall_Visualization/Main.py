@@ -1,3 +1,4 @@
+import Rule
 import Ruleset
 import DataFrame
 import BDDgenerator
@@ -38,10 +39,30 @@ def main():
             return 
         elif int(selectedOption) == 3:
             print("The selected option is 3")
+            print("Note this is currently broken!")
+            print("Please input a packet in the following format")
+            print("-A INPUT -p tcp  -m state --state ESTABLISHED  -s 167.99.186.206/22 -j ACCEPT ")
+            userPacket = input("Please input a packet to test: ")
+            tempArr = userPacket.split()
+            # newRule = Rule.Rule(tempArr[0],tempArr[1])
+            newRule = Rule.Rule(tempArr)
+            
+            BDDgenerator.passPacket(newRule,myBDD_1)
+
             welcomePrints(fileName_1,myRuleSet_1,myExpr_1,myBDD_1,fileName_2,myRuleSet_2,myExpr_2,myBDD_2)
             return 
         elif int(selectedOption) == 4:
             print("The selected option is 4")
+            print("Note this is currently broken!")
+            print("Please input a packet in the following format")
+            print("-A INPUT -p tcp  -m state --state ESTABLISHED  -s 167.99.186.206/22 -j ACCEPT ")
+            userPacket = input("Please input a packet to test: ")
+            tempArr = userPacket.split()
+            # newRule = Rule.Rule(tempArr[0],tempArr[1])
+            newRule = Rule.Rule(tempArr)
+            
+            BDDgenerator.passPacket(newRule,myBDD_1)
+
             welcomePrints(fileName_1,myRuleSet_1,myExpr_1,myBDD_1,fileName_2,myRuleSet_2,myExpr_2,myBDD_2)
             return
         elif int(selectedOption) == 5:

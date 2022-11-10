@@ -85,6 +85,8 @@ def generateBoolExpression(ruleCode,fieldCode):
         #print("rule = ",ruleBool)
         # print("val = ",ruleCode[tag])  
         # print(makeExpression(tag,ruleCode[tag])) 
+    
+    # Functionality has changed and no longer only checks for the accept value
     op=getRuleStatus(ruleCode)
     # stat = expr(1)
     # if op == "ACCEPT":
@@ -174,7 +176,39 @@ def compareBDDs(firstBDD:BinaryDecisionDiagram, secondBDD:BinaryDecisionDiagram)
         print("An error occured, please ensure that you have loaded both ruleset 1 and ruleset 2 prior to using this function")
         return
 
-    # This function will take  in a rule and convert each field into a variabvle for the BDD in this way each node is a single field
+# This function checks to see if a packet would pass through the bdd
+def passPacket(packet:Rule, BDD:BinaryDecisionDiagram):
+    # checks to see if the packet would pass through the bdd 
+    packetString = ''
+    # for tag in packet.flagTags:
+    #     #print(tag)
+    #     # f.restrict({a: 1, b: 0})
+        
+    #     if (len(packetString) < 1):
+    #         packetString = str(packet.ruleFlags[tag]) + ': 1'
+    #     else:
+    #         packetString = packetString + ', ' + str(packet.ruleFlags[tag]) + ': 1'
+    # packetString = '{' + packetString + '}'
+
+    # try create a dictionary to pass it
+    packetDict = {}
+    for tag in packet.flagTags:
+        packetDict[packet.ruleFlags[tag]] = 1
+    
+    print(packetDict)
+    
+    #########################################
+    # Note that it appears that the bdd vars arent declared and thus cant be used in a restriction 
+    # This might be fixable with an update to the variables during creation
+
+    ########################################
+    #BDD.restrict({INPUT:1,tcp:1})
+    BDD.restrict(packetDict)
+
+    return
+
+
+# This function will take  in a rule and convert each field into a variabvle for the BDD in this way each node is a single field
 # This will result in a BDD for the entire rule with each node representing a field in a rule 
 
 # Going to have each field as an expression and then use the and operator to make them all link
