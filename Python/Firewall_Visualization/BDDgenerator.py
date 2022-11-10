@@ -162,6 +162,14 @@ def generateBDDfromExpr(exprRules:Expression):
     print('The number of nodes required to implement the BDD is ' + str(len(_NODES)))
     return outputBDD
 
+# This function will take in 2 bdds and compare them for functional equivalence and return an answer 
+def compareBDDs(firstBDD:BinaryDecisionDiagram, secondBDD:BinaryDecisionDiagram):
+    if(firstBDD.equivalent(secondBDD)):
+        print("The BDDs are equivalent")
+    else:
+        print("The BDDs are not equivalent with one another")
+    return
+
     # This function will take  in a rule and convert each field into a variabvle for the BDD in this way each node is a single field
 # This will result in a BDD for the entire rule with each node representing a field in a rule 
 

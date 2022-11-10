@@ -3,12 +3,20 @@ import DataFrame
 import BDDgenerator
 
 def main():
-
     # Creating a function to serve as a switch statement 
-    def welcomeSwitch(selectedOption):
+    fileName_1 = ''
+    myRuleSet_1 = ''
+    myExpr_1 = ''
+    myBDD_1 = ''
+    fileName_2 = ''
+    myRuleSet_2 = ''
+    myExpr_2 = ''
+    myBDD_2 = ''
+    def welcomeSwitch(fileName_1,myRuleSet_1,myExpr_1,myBDD_1,fileName_2,myRuleSet_2,myExpr_2,myBDD_2,selectedOption):
+
         if int(selectedOption) > 5:
             print("The option selected does not exist. Please select an option from those listed.")
-            welcomePrints()
+            welcomePrints(fileName_1,myRuleSet_1,myExpr_1,myBDD_1,fileName_2,myRuleSet_2,myExpr_2,myBDD_2)
             return
         elif int(selectedOption) == 1:
             print("The selected option is 1")
@@ -17,7 +25,7 @@ def main():
             myRuleSet_1.importRules()
             myExpr_1 = BDDgenerator.generateBDDBoolExpression(myRuleSet_1.Rules,myRuleSet_1.ruleFields)
             myBDD_1 = BDDgenerator.generateBDDfromExpr(myExpr_1)
-            welcomePrints()
+            welcomePrints(fileName_1,myRuleSet_1,myExpr_1,myBDD_1,fileName_2,myRuleSet_2,myExpr_2,myBDD_2)
             return 
         elif int(selectedOption) == 2:
             print("The selected option is 2")
@@ -26,22 +34,32 @@ def main():
             myRuleSet_2.importRules()
             myExpr_2 = BDDgenerator.generateBDDBoolExpression(myRuleSet_2.Rules,myRuleSet_2.ruleFields)
             myBDD_2 = BDDgenerator.generateBDDfromExpr(myExpr_2)
-            welcomePrints()
+            welcomePrints(fileName_1,myRuleSet_1,myExpr_1,myBDD_1,fileName_2,myRuleSet_2,myExpr_2,myBDD_2)
             return 
         elif int(selectedOption) == 3:
             print("The selected option is 3")
-            welcomePrints()
+            welcomePrints(fileName_1,myRuleSet_1,myExpr_1,myBDD_1,fileName_2,myRuleSet_2,myExpr_2,myBDD_2)
             return 
         elif int(selectedOption) == 4:
             print("The selected option is 4")
-            welcomePrints()
+            welcomePrints(fileName_1,myRuleSet_1,myExpr_1,myBDD_1,fileName_2,myRuleSet_2,myExpr_2,myBDD_2)
             return
         elif int(selectedOption) == 5:
             print("The selected option is 5")
-            welcomePrints()
+            BDDgenerator.compareBDDs(myBDD_1,myBDD_2)
+            welcomePrints(fileName_1,myRuleSet_1,myExpr_1,myBDD_1,fileName_2,myRuleSet_2,myExpr_2,myBDD_2)
             return 
     
-    def welcomePrints():
+    def welcomePrints(fileName_1,myRuleSet_1,myExpr_1,myBDD_1,fileName_2,myRuleSet_2,myExpr_2,myBDD_2):
+        # self.fileName_1 = fileName_1
+        # self.myRuleSet_1 = myRuleSet_1
+        # self.myExpr_1 = myExpr_1
+        # self.myBDD_1 = myBDD_1
+        # self.fileName_2 = fileName_2
+        # self.myRuleSet_2 = myRuleSet_2
+        # self.myExpr_2 = myExpr_2
+        # self.myBDD_2 = myBDD_2
+
         print("\n Welcome, Please select an option from the following:\n")
         print("1. Load a ruleset file for ruleset 1\n")
         print("2. Load a ruleset file for ruleset 2\n")
@@ -53,9 +71,9 @@ def main():
         print("A correct input would look like the following:")
         print("Example Please select an option number: 1\n")
         selectedOption = input("Please select an option number: ")
-        welcomeSwitch(selectedOption)
+        welcomeSwitch(fileName_1,myRuleSet_1,myExpr_1,myBDD_1,fileName_2,myRuleSet_2,myExpr_2,myBDD_2,selectedOption)
 
-    welcomePrints()
+    welcomePrints(fileName_1,myRuleSet_1,myExpr_1,myBDD_1,fileName_2,myRuleSet_2,myExpr_2,myBDD_2)
         
     
 
