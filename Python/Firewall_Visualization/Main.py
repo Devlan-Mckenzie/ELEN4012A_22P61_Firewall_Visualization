@@ -12,24 +12,39 @@ def main():
             return
         elif int(selectedOption) == 1:
             print("The selected option is 1")
+            fileName_1 = input("Enter file path with it`s extension for profile 1:")
+            myRuleSet_1 = Ruleset.RuleSet(fileName_1)
+            myRuleSet_1.importRules()
+            myExpr_1 = BDDgenerator.generateBDDBoolExpression(myRuleSet_1.Rules,myRuleSet_1.ruleFields)
+            myBDD_1 = BDDgenerator.generateBDDfromExpr(myExpr_1)
+            welcomePrints()
             return 
         elif int(selectedOption) == 2:
             print("The selected option is 2")
+            fileName_2 = input("Enter file path with it`s extension for profile 2:")
+            myRuleSet_2 = Ruleset.RuleSet(fileName_2)
+            myRuleSet_2.importRules()
+            myExpr_2 = BDDgenerator.generateBDDBoolExpression(myRuleSet_2.Rules,myRuleSet_2.ruleFields)
+            myBDD_2 = BDDgenerator.generateBDDfromExpr(myExpr_2)
+            welcomePrints()
             return 
         elif int(selectedOption) == 3:
             print("The selected option is 3")
+            welcomePrints()
             return 
         elif int(selectedOption) == 4:
             print("The selected option is 4")
+            welcomePrints()
             return
         elif int(selectedOption) == 5:
             print("The selected option is 5")
+            welcomePrints()
             return 
     
     def welcomePrints():
         print("\n Welcome, Please select an option from the following:\n")
-        print("1. Load a ruleset file for profile 1\n")
-        print("2. Load a ruleset file for profile 2\n")
+        print("1. Load a ruleset file for ruleset 1\n")
+        print("2. Load a ruleset file for ruleset 2\n")
         print("3. Check if a packet would pass ruleset 1\n")
         print("4. Check if a packet would pass ruleset 2\n")
         print("5. Check if ruleset 1 is functionally equivalent to ruleset 2\n")
@@ -44,11 +59,7 @@ def main():
         
     
 
-    fileName = input("Enter fileName with extension:")
-    myRuleSet = Ruleset.RuleSet(fileName)
-    myRuleSet.importRules()
-    myExpr= BDDgenerator.generateBDDBoolExpression(myRuleSet.Rules,myRuleSet.ruleFields)
-    myBDD = BDDgenerator.generateBDDfromExpr(myExpr)
+    
     # print(myRuleSet.Rules)
     #myRuleSet.importRules()
     # myDF = DataFrame.generateDataFrame(fileName)
