@@ -3,7 +3,47 @@ import DataFrame
 import BDDgenerator
 
 def main():
-    #print("Main Starts Here")
+
+    # Creating a function to serve as a switch statement 
+    def welcomeSwitch(selectedOption):
+        if int(selectedOption) > 5:
+            print("The option selected does not exist. Please select an option from those listed.")
+            welcomePrints()
+            return
+        elif int(selectedOption) == 1:
+            print("The selected option is 1")
+            return 
+        elif int(selectedOption) == 2:
+            print("The selected option is 2")
+            return 
+        elif int(selectedOption) == 3:
+            print("The selected option is 3")
+            return 
+        elif int(selectedOption) == 4:
+            print("The selected option is 4")
+            return
+        elif int(selectedOption) == 5:
+            print("The selected option is 5")
+            return 
+    
+    def welcomePrints():
+        print("\n Welcome, Please select an option from the following:\n")
+        print("1. Load a ruleset file for profile 1\n")
+        print("2. Load a ruleset file for profile 2\n")
+        print("3. Check if a packet would pass ruleset 1\n")
+        print("4. Check if a packet would pass ruleset 2\n")
+        print("5. Check if ruleset 1 is functionally equivalent to ruleset 2\n")
+
+        print("To correctly select an option please input the option number, for example to select option 1 type 1\n")
+        print("A correct input would look like the following:")
+        print("Example Please select an option number: 1\n")
+        selectedOption = input("Please select an option number: ")
+        welcomeSwitch(selectedOption)
+
+    welcomePrints()
+        
+    
+
     fileName = input("Enter fileName with extension:")
     myRuleSet = Ruleset.RuleSet(fileName)
     myRuleSet.importRules()
