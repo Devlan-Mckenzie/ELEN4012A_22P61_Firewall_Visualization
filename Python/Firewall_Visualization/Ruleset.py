@@ -2,10 +2,11 @@ import Rule
 
 class RuleSet:
 
-    Rules = []
-    ruleFields = []
+    
     def __init__(self,fileName):
         self.fileName =  fileName
+        self.Rules = []
+        self.ruleFields = []
     
     def importRules(self):
         print("The file path is " + self.fileName)
