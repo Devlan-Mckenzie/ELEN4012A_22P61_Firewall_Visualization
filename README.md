@@ -3,4 +3,5 @@
 # Muchaveleli Manjate
 
 To run the application, first create a virtual environment to import all modules and depencencies.
-Then run the command: python hello.py Rules.txt
+Then run the command: python main.py
+Then follow the instructions given in the output console
