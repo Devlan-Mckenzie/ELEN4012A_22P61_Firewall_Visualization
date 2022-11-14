@@ -179,7 +179,7 @@ def compareBDDs(firstBDD:BinaryDecisionDiagram, secondBDD:BinaryDecisionDiagram)
 # This function checks to see if a packet would pass through the bdd
 def passPacket(packet:Rule, BDD:BinaryDecisionDiagram):
     # checks to see if the packet would pass through the bdd 
-    packetString = ''
+    # packetString = ''
     # for tag in packet.flagTags:
     #     #print(tag)
     #     # f.restrict({a: 1, b: 0})
@@ -191,11 +191,11 @@ def passPacket(packet:Rule, BDD:BinaryDecisionDiagram):
     # packetString = '{' + packetString + '}'
 
     # try create a dictionary to pass it
-    packetDict = {}
-    for tag in packet.flagTags:
-        packetDict[packet.ruleFlags[tag]] = 1
+    # packetDict = {}
+    # for tag in packet.flagTags:
+    #     packetDict[packet.ruleFlags[tag]] = 1
     
-    print(packetDict)
+    # print(packetDict)
     
     #########################################
     # Note that it appears that the bdd vars arent declared and thus cant be used in a restriction 
@@ -203,7 +203,7 @@ def passPacket(packet:Rule, BDD:BinaryDecisionDiagram):
 
     ########################################
     #BDD.restrict({INPUT:1,tcp:1})
-    BDD.restrict(packetDict)
+    # BDD.restrict(packetDict)
 
     return
 
